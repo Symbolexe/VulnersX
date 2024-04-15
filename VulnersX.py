@@ -37,6 +37,9 @@ class VulnersX:
                     # Update progress bar
                     progress = i / total_vulnerabilities
                     self.update_progress_bar(progress)
+                    # Print details to terminal
+                    if progress == 1.0:  # Display results after progress bar completion
+                        self.display_results()
                 print("\n\033[1mSearch complete.\033[0m")
                 print("Results saved.")
             else:
@@ -59,8 +62,14 @@ class VulnersX:
         bar_length = 50
         filled_length = int(bar_length * progress)
         bar = '█' * filled_length + '-' * (bar_length - filled_length)
-        print(f"\rProgress: [{bar}] {int(progress * 100)}%", end='', flush=True)
+        sys.stdout.write(f"\rProgress: [{bar}] {int(progress * 100)}%")
+        sys.stdout.flush()
         time.sleep(0.1)  # Introduce a slight delay for visual effect
+
+    def display_results(self):
+        print("\n\033[1mResults:\033[0m")
+        with open('cves.txt', 'r') as f:
+            print(f.read())
 
 def main():
     if len(sys.argv) != 3:
