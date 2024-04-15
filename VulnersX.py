@@ -1,3 +1,4 @@
+import argparse
 import requests
 import sqlite3
 import time
@@ -62,11 +63,17 @@ class VulnersX:
         time.sleep(0.1)  # Introduce a slight delay for visual effect
 
 def main():
+    parser = argparse.ArgumentParser(description="VulnersX Tool")
+    parser.add_argument("--package", help="Name of the package to search vulnerabilities for (e.g., kernel)")
+    parser.add_argument("--date", help="Date to search vulnerabilities after (YYYY-MM-DD)")
+    args = parser.parse_args()
+
+    if not args.package or not args.date:
+        parser.error("You must provide both --package and --date arguments")
+
     print("Welcome to VulnersX Tool!")
     vst = VulnersX()
-    package_name = input("Enter the name of the package to search vulnerabilities for (e.g., kernel): ")
-    after_date = input("Enter the date to search vulnerabilities after (YYYY-MM-DD): ")
-    vst.search_vulnerabilities(package_name, after_date)
+    vst.search_vulnerabilities(args.package, args.date)
 
 if __name__ == "__main__":
     main()
