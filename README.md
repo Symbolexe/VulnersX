@@ -20,3 +20,9 @@ VulnersX is a powerful tool for efficiently searching and analyzing software vul
 - Run the script using Python: `python3 VulnersX.py`.
 - Follow the on-screen prompts to enter the package name and the date for vulnerability search.
 - View the search results in the database and text files.
+
+# Notes
+if you use VulnersX tool, you can use this command to just extract the CVE's ID from cves.txt file.
+```bash
+grep -oP 'CVE-\d{4}-\d{4}' cves.txt
+```
