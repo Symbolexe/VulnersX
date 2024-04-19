@@ -21,6 +21,60 @@ VulnersX is a powerful tool for efficiently searching and analyzing software vul
 - Follow the on-screen prompts to enter the package name and the date for vulnerability search.
 - View the search results in the database and text files.
 
+# Pip
+you can use this tool with : `pip install vulnersx`
+
+- Example - 1
+```python
+from vulnersx import VulnersX
+
+def main():
+    package_name = "apache"  # Replace with the package name you want to search vulnerabilities for
+    after_date = "2022-01-01"  # Replace with the date from which you want to search vulnerabilities
+
+    print("Welcome to VulnersX Tool!")
+    vst = VulnersX()
+    vst.search_vulnerabilities(package_name, after_date)
+
+if __name__ == "__main__":
+    main()
+```
+
+- Example - 2
+```python
+from vulnersx import VulnersX
+
+def main():
+    # Define a list of packages and their corresponding after dates
+    package_info = [
+        {"name": "openssl", "after_date": "2022-01-01"},
+        {"name": "nginx", "after_date": "2022-01-01"},
+        {"name": "apache", "after_date": "2022-01-01"}
+    ]
+
+    print("Welcome to VulnersX Tool!")
+    vst = VulnersX()
+
+    for pkg_info in package_info:
+        package_name = pkg_info["name"]
+        after_date = pkg_info["after_date"]
+        print(f"Searching vulnerabilities for {package_name} after {after_date}...")
+        vulnerabilities = vst.search_vulnerabilities(package_name, after_date)
+        
+        if vulnerabilities:
+            print(f"\033[1mFound vulnerabilities for {package_name}:\033[0m")
+            for vulnerability in vulnerabilities:
+                print(f"CVE ID: {vulnerability['cve_id']}")
+                print(f"Summary: {vulnerability['summary']}")
+                print("-" * 50)
+        else:
+            print(f"\033[91mNo vulnerabilities found for {package_name} after {after_date}.\033[0m")
+        
+        print("\n")
+
+if __name__ == "__main__":
+    main()
+```
 # Notes
 if you use VulnersX tool, you can use this command to just extract the CVE's ID from cves.txt file.
 ```bash
